@@ -21,6 +21,19 @@ class StudentView
 
   }
 
+  public function deleteStudent(array $student): void
+  {
+    $json = [
+      'student-count' => count($student),
+      'result' => $student,
+      'message' => "Deleted successfully!"
+    ];
+
+    header("Content-Type: application/json");
+    echo json_encode($json);
+
+  }
+
 
   public function createNewStudent(array $student): void
   {

@@ -20,5 +20,11 @@ $studentView = new StudentView();
 
 $studentController = new StudentController($studentModel, $studentView);
 
-// $studentController->start();
+$studentController->getAll();
+
+
+$studentController->getById();
+
 $studentController->add();
+
+$studentController->deleteById();

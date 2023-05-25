@@ -20,6 +20,14 @@ class StudentModel extends DB
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function deleteStudentById($id)
+  {
+    $query = "DELETE FROM $this->table  WHERE id = ?";
+    $statement = $this->pdo->prepare($query);
+    $statement->execute([$id]);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 
   public function addStudent(int $classId, string $firstName, string $lastName, string $email, int $number)
   {
