@@ -29,7 +29,7 @@ class StudentModel extends DB
   }
 
 
-  public function addStudent(int $classId, string $firstName, string $lastName, string $email, int $number)
+  public function addStudent(int $classId, string $firstName, string $lastName, string $email, string $number)
   {
     $query = "INSERT INTO $this->table (`classId`, `first_name`, `last_name`,  `email`, `number`) VALUES (?,?,?,?,?)";
     $statement = $this->pdo->prepare($query);
