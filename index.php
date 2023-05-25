@@ -20,6 +20,7 @@ $studentView = new StudentView();
 
 $studentController = new StudentController($studentModel, $studentView);
 
+
 $studentController->getAll();
 
 

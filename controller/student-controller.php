@@ -58,7 +58,7 @@ class StudentController
   public function deleteById()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['student-id'])) {
-      $student_id = filter_var($_GET['students/student-id'], FILTER_SANITIZE_NUMBER_INT);
+      $student_id = filter_var($_GET['student-id'], FILTER_SANITIZE_NUMBER_INT);
       $student_id = filter_var($student_id, FILTER_VALIDATE_INT);
       $one = $this->model->deleteStudentById($student_id);
       $this->view->deleteStudent($one);
