@@ -16,11 +16,11 @@ class StudentController
 
     if (isset($_GET['action'])) {
       $chosenAction = filter_var($_GET['action'], FILTER_SANITIZE_SPECIAL_CHARS);
-    }
-    if ($chosenAction == 'students') {
-      $all = $this->model->getAllStudents();
-      $this->view->outputStudents($all);
 
+      if ($chosenAction == 'students') {
+        $all = $this->model->getAllStudents();
+        $this->view->outputStudents($all);
+      }
     } else {
       echo "there no students to output...";
     }
