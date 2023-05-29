@@ -1,5 +1,6 @@
 <?php
 
+
 class StudentController
 {
   private $model = null;
@@ -10,6 +11,7 @@ class StudentController
     $this->model = $studentModel;
     $this->view = $studentView;
   }
+
 
   public function getAll()
   {
@@ -30,6 +32,7 @@ class StudentController
   {
     $method = $_SERVER['REQUEST_METHOD'];
 
+
     if ($method == 'GET') {
       if (isset($_GET['student-id'])) {
         $student_id = filter_var($_GET['student-id'], FILTER_SANITIZE_NUMBER_INT);
@@ -45,16 +48,19 @@ class StudentController
 
   public function add()
   {
+    $json = file_get_contents("php://input");
+    $data = json_decode($json, true);
+
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'POST') {
-      if (isset($_POST['classId'], $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['number'])) {
-        $classId = filter_var($_POST['classId'], FILTER_SANITIZE_NUMBER_INT);
+      if (isset($data['classId'], $data['first_name'], $data['last_name'], $data['email'], $data['number'])) {
+        $classId = filter_var($data['classId'], FILTER_SANITIZE_NUMBER_INT);
         $classId = filter_var($classId, FILTER_VALIDATE_INT);
-        $firstName = filter_var($_POST['first_name'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $lastName = filter_var($_POST['last_name'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $firstName = filter_var($data['first_name'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $lastName = filter_var($data['last_name'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_var($data['email'], FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $number = filter_var($_POST['number'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $number = filter_var($data['number'], FILTER_SANITIZE_SPECIAL_CHARS);
         $one = $this->model->addStudent($classId, $firstName, $lastName, $email, $number);
         $this->view->createNewStudent($one);
       } else {
@@ -65,12 +71,13 @@ class StudentController
 
   public function deleteById()
   {
-
+    $json = file_get_contents("php://input");
+    $data = json_decode($json, true);
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method == 'DELETE') {
-      if (isset($_GET['student-id'])) {
-        $student_id = filter_var($_GET['student-id'], FILTER_SANITIZE_NUMBER_INT);
+      if (isset($data['student-id'])) {
+        $student_id = filter_var($data['student-id'], FILTER_SANITIZE_NUMBER_INT);
         $student_id = filter_var($student_id, FILTER_VALIDATE_INT);
         $one = $this->model->deleteStudentById($student_id);
         $this->view->deleteStudent($one);

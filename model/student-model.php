@@ -34,6 +34,6 @@ class StudentModel extends DB
     $query = "INSERT INTO $this->table (`classId`, `first_name`, `last_name`,  `email`, `number`) VALUES (?,?,?,?,?)";
     $statement = $this->pdo->prepare($query);
     $statement->execute([$classId, $firstName, $lastName, $email, $number]);
-    // return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 }
